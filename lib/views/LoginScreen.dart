@@ -1,3 +1,4 @@
+import 'package:camionesapp/views/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -7,6 +8,8 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
+
+
 class _LoginScreenState extends State<LoginScreen> {
 
   final _formKey = GlobalKey<FormState>();
@@ -15,36 +18,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
 
   bool isLoading = false;
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
-  void login() {
-    if (!_formKey.currentState!.validate()) return;
-
-    setState(() {
-      isLoading = true;
-    });
-
-    final email = emailController.text;
-    final password = passwordController.text;
-
-    // Simulación de API
-    Future.delayed(const Duration(seconds: 2), () {
-
-      setState(() {
-        isLoading = false;
-      });
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Login exitoso: $email")),
-      );
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,4 +85,48 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+  
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void login() {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() {
+      isLoading = true;
+    });
+
+    final email = emailController.text;
+    final password = passwordController.text;
+
+    // Simulación de API
+    Future.delayed(const Duration(seconds: 2), () {
+
+      setState(() {
+        isLoading = false;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Login exitoso: $email")),
+      );
+
+      redirectToHome();
+    });
+  }
+
+  void redirectToHome() {
+    Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeScreen(),
+              ),
+            );
+  }
+
+  
 }
